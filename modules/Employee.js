@@ -1,4 +1,4 @@
-export class Employee {
+module.exports = class Employee {
   constructor(obj) {
     this.emplData = obj;
     const { _id, firstName, lastName, salary, experience, manager, team, dev_team } = obj;

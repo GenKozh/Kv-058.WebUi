@@ -1,6 +1,8 @@
-import {EmployeeFactory} from './EmployeeFactory';
+const EmployeeFactory = require('./EmployeeFactory.js');
 
-export class Department {
+// import {EmployeeFactory} from './EmployeeFactory';
+
+module.exports = class Department {
   constructor(obj) {
         this.depData = obj;
     };

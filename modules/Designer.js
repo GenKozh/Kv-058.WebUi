@@ -1,6 +1,8 @@
-import { Employee } from "./Employee";
+const Employee = require('./Employee.js');
 
-export class Designer extends Employee {
+// import { Employee } from "./Employee";
+
+module.exports = class Designer extends Employee {
   constructor(obj) {
     super(obj);
     this.role = "designer";

@@ -1,5 +1,6 @@
+const Department = require('./modules/Department.js');
 
-import {Department} from './modules/Department';
+// import {Department} from './modules/Department';
 
 
 const data = 
