@@ -1,6 +1,6 @@
-const Manager = require('./Manager.js');
-const Developer = require('./Developer.js');
-const Designer = require('./Designer.js');
+const Manager = require('./manager.js');
+const Developer = require('./developer.js');
+const Designer = require('./designer.js');
 
 
 // import {Manager} from './Manager';

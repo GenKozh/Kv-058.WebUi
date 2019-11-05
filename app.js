@@ -1,4 +1,7 @@
-const Department = require('./modules/Department.js');
+const express = require('express');
+const expressApp = express();
+
+const Department = require('./modules/department.js');
 
 // import {Department} from './modules/Department';
 
@@ -130,3 +133,14 @@ console.log(newDep.managersArray);
 newDep.listBaseSalary();
 
 newDep.giveSalary();
+
+expressApp.get('/', (req, res) => {
+  res.send({
+    firstName: 'Boris',
+    lastName: 'Blade'
+  })
+}); 
+
+const sever = expressApp.listen(3000, () => { 
+  console.log("Listenting on port 3000");
+})

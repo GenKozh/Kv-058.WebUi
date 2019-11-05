@@ -1,4 +1,4 @@
-const Employee = require('./Employee.js');
+const Employee = require('./employee.js');
 
 // import { Employee } from "./Employee";
 
@@ -21,6 +21,8 @@ module.exports = class Designer extends Employee {
 
   getSalary() {
     // console.log(parseFloat(this.effCoeff));
+    if (this.effCoeff) {
     return super.getSalary() * parseFloat(this.effCoeff);
+    }
   }
 }

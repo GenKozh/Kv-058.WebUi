@@ -1,6 +1,28 @@
 {
-    "type": "module",
-    "dependencies": {
-        "jasmine": "^3.5.0"
-    }
+  "scripts": {
+    "test": "jasmine"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "jasmine": "^3.5.0"
+  },
+  "name": "kv-058.webui",
+  "description": "homework tasks",
+  "version": "1.0.0",
+  "main": "app.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GenKozh/Kv-058.WebUi.git"
+  },
+  "author": "Gennadiy Kozhushok",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GenKozh/Kv-058.WebUi/issues"
+  },
+  "homepage": "https://github.com/GenKozh/Kv-058.WebUi#readme"
 }
