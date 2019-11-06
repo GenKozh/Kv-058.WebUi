@@ -134,12 +134,86 @@ newDep.listBaseSalary();
 
 newDep.giveSalary();
 
-expressApp.get('/', (req, res) => {
+
+// GET /api/v1/employees should return a list of all employees except managers in format
+//  [{"type": "designer", "id": 0, "manager_id": 1, other data...}, 
+//  {"type": "developer", "id": 0, "manager_id": 1, other data...}], 
+//  where id is the index of employee in the general array, but do not return the 
+//  calculated salary with bonuses in the list!!!! Return manager_id if he has a manager.
+
+expressApp.get('/api/v1/employees', (req, res) => {
   res.send({
     firstName: 'Boris',
     lastName: 'Blade'
   })
 }); 
+
+// POST /api/v1/employees should accept an object 
+// {"type": "designer", other data...} (no id in post, as client does not know it when creating new employees) 
+// and depending on type field create an instance of Developer or Designer.
+
+expressApp.post('/api/v1/employees', (req, res) => {
+  res.post({
+    firstName: 'Boris',
+    lastName: 'Blade'
+  })
+}); 
+
+
+// GET /api/v1/employees/:id should return all info about specific employee from general employee list in format 
+// ["type": "designer", "id": 0, "salary": 1500, other data...}, 
+// here you should return the employee's salary with bonuses!
+
+expressApp.get('/api/v1/employees/:id', (req, res) => {
+  res.post({
+    firstName: 'Boris',
+    lastName: 'Blade'
+  })
+}); 
+
+// GET /api/v1/managers should return a list of all managers in format [{"type": "manager", "id": 0, other data...}], 
+// where id is the index of manager in the managers array, do not return the calculated salary with bonuses in the list, 
+// and do not return the team members!!!!
+
+// POST /api/v1/managers should accept an object 
+// {"type": "manager", other data...} (no id in post, as client does not know it 
+//   when creating new employees) and create a Manager in you app.
+
+// GET /api/v1/managers/:id should return all info about specific manager in format 
+// ["type": "manager", "id": 0, "salary": 1500, other data...}, here you should return the 
+// managers's salary with bonuses. Do not return the team list!.
+
+// GET /api/v1/managers/:id/team should return a list of this manager's team in format 
+// [{"type": "designer", "id": 0, other data...}, {"type": "developer", other data...}]
+
+// POST /api/v1/managers/:id/team should accept an object {"employee_id": 0} 
+// and should add an employee from general employee list by his employee_id (or index) to manager's team
+
+
+
+
+
+const app = express()
+    .use(bodyParser.json())
+    .use(bodyParser.urlencoded({ extended: false }))
+    .post('/pets', (req, res, next) => {
+        pets.push(new Pet(req.body.type, req.body.name));
+        res.end();
+    })
+    .get('/pets', (req, res, next) => {
+        res.end(JSON.stringify(pets));
+    })
+    .put('/pets/:id', (req, res, next) => {
+        pets[req.params.id] = req.body;
+        res.end();
+    })
+    .get('/pets/:id', (req,res, next) => {
+        res.end(JSON.stringify(pets[req.params.id]));
+    })
+    .listen(3000);
+
+
+
 
 const sever = expressApp.listen(3000, () => { 
   console.log("Listenting on port 3000");
