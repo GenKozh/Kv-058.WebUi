@@ -142,34 +142,31 @@ newDep.giveSalary();
 //  calculated salary with bonuses in the list!!!! Return manager_id if he has a manager.
 
 expressApp.get('/api/v1/employees', (req, res) => {
-  res.send({
-    firstName: 'Boris',
-    lastName: 'Blade'
-  })
+  res.send(data)
 }); 
 
 // POST /api/v1/employees should accept an object 
 // {"type": "designer", other data...} (no id in post, as client does not know it when creating new employees) 
 // and depending on type field create an instance of Developer or Designer.
 
-expressApp.post('/api/v1/employees', (req, res) => {
-  res.post({
-    firstName: 'Boris',
-    lastName: 'Blade'
-  })
-}); 
+// expressApp.post('/api/v1/employees', (req, res) => {
+//   res.post({
+//     firstName: 'Boris',
+//     lastName: 'Blade'
+//   })
+// }); 
 
 
 // GET /api/v1/employees/:id should return all info about specific employee from general employee list in format 
 // ["type": "designer", "id": 0, "salary": 1500, other data...}, 
 // here you should return the employee's salary with bonuses!
 
-expressApp.get('/api/v1/employees/:id', (req, res) => {
-  res.post({
-    firstName: 'Boris',
-    lastName: 'Blade'
-  })
-}); 
+// expressApp.get('/api/v1/employees/:id', (req, res) => {
+//   res.post({
+//     firstName: 'Boris',
+//     lastName: 'Blade'
+//   })
+// }); 
 
 // GET /api/v1/managers should return a list of all managers in format [{"type": "manager", "id": 0, other data...}], 
 // where id is the index of manager in the managers array, do not return the calculated salary with bonuses in the list, 
@@ -193,24 +190,24 @@ expressApp.get('/api/v1/employees/:id', (req, res) => {
 
 
 
-const app = express()
-    .use(bodyParser.json())
-    .use(bodyParser.urlencoded({ extended: false }))
-    .post('/pets', (req, res, next) => {
-        pets.push(new Pet(req.body.type, req.body.name));
-        res.end();
-    })
-    .get('/pets', (req, res, next) => {
-        res.end(JSON.stringify(pets));
-    })
-    .put('/pets/:id', (req, res, next) => {
-        pets[req.params.id] = req.body;
-        res.end();
-    })
-    .get('/pets/:id', (req,res, next) => {
-        res.end(JSON.stringify(pets[req.params.id]));
-    })
-    .listen(3000);
+// const app = express()
+//     .use(bodyParser.json())
+//     .use(bodyParser.urlencoded({ extended: false }))
+//     .post('/pets', (req, res, next) => {
+//         pets.push(new Pet(req.body.type, req.body.name));
+//         res.end();
+//     })
+//     .get('/pets', (req, res, next) => {
+//         res.end(JSON.stringify(pets));
+//     })
+//     .put('/pets/:id', (req, res, next) => {
+//         pets[req.params.id] = req.body;
+//         res.end();
+//     })
+//     .get('/pets/:id', (req,res, next) => {
+//         res.end(JSON.stringify(pets[req.params.id]));
+//     })
+//     .listen(3000);
 
 
 
