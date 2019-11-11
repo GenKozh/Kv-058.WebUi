@@ -29,12 +29,19 @@ Redefine string representation for Employee as follows: "$firstName $lastName, m
 3. Create a NodeJs Express app to serve the Department data using REST API:
 
 Have a separate array of all the employees in department and an array of managers from task #1.
+
 GET /api/v1/employees should return a list of all employees except managers in format [{"type": "designer", "id": 0, "manager_id": 1, other data...}, {"type": "developer", "id": 0, "manager_id": 1, other data...}], where id is the index of employee in the general array, but do not return the calculated salary with bonuses in the list!!!! Return manager_id if he has a manager.
+
 POST /api/v1/employees should accept an object {"type": "designer", other data...} (no id in post, as client does not know it when creating new employees) and depending on type field create an instance of Developer or Designer.
+
 GET /api/v1/employees/:id should return all info about specific employee from general employee list in format ["type": "designer", "id": 0, "salary": 1500, other data...}, here you should return the employee's salary with bonuses!
+
 GET /api/v1/managers should return a list of all managers in format [{"type": "manager", "id": 0, other data...}], where id is the index of manager in the managers array, do not return the calculated salary with bonuses in the list, and do not return the team members!!!!
+
 POST /api/v1/managers should accept an object {"type": "manager", other data...} (no id in post, as client does not know it when creating new employees) and create a Manager in you app.
+
 GET /api/v1/managers/:id should return all info about specific manager in format ["type": "manager", "id": 0, "salary": 1500, other data...}, here you should return the managers's salary with bonuses. Do not return the team list!.
+
 GET /api/v1/managers/:id/team should return a list of this manager's team in format [{"type": "designer", "id": 0, other data...}, {"type": "developer", other data...}]
 
 POST /api/v1/managers/:id/team should accept an object {"employee_id": 0} and should add an employee from general employee list by his employee_id (or index) to manager's team
