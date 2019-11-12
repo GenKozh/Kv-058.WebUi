@@ -1,7 +1,7 @@
 const express = require('express'),
-Department = require('./modules/department.js'),
-  bodyParser = require('body-parser'),
-  app = express();
+Department = require('./modules/Department.js'),
+bodyParser = require('body-parser'),
+app = express();
 
 
 const data = 
