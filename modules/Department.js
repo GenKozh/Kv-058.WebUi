@@ -1,4 +1,4 @@
-const EmployeeFactory = require('./employeefactory.js');
+const EmployeeFactory = require('./EmployeeFactory.js');
 
 // import {EmployeeFactory} from './EmployeeFactory';
 
