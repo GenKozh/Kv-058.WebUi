@@ -284,6 +284,6 @@ app.route(__depEmployees)
 //   res.render('main.pug', data);
 // });
 
-const server = app.listen(3000, function() {
+const server = app.listen(process.env.PORT || 5000, function() {
   console.log('Listening on port 3000');
 });
