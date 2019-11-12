@@ -14,3 +14,9 @@ block content
         input#pageContent.form-control(name='pageContent' type='text')
       .form-group
         button.btn.btn-primary(type='submit') Add
+    hr
+    a.btn.btn-sm.btn-success(href='/api/v1/employees') GET /api/v1/employees
+  form(method='post' action='/api/v1/employees')
+    fieldset
+      .form-group
+        button.btn.btn-sm.btn-warning(type='submit') POST /api/v1/employees

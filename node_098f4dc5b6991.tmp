@@ -126,9 +126,9 @@ for (let { firstName, lastName, role, team } of newDep.empl) {
 
 //================ Express app part ==================
 
-const express = require("express");
-const bodyParser = require("body-parser");
-const app = express();
+const express = require("express"),
+  bodyParser = require("body-parser"),
+  app = express();
 
 //Paths for GET/POST requests
 
