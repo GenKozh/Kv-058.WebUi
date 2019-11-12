@@ -1,7 +1,7 @@
 {
   "scripts": {
     "test": "jasmine",
-    "start": "node server.js"
+    "start": "node main.js"
   },
   "engines": {
     "node": "10.16"
