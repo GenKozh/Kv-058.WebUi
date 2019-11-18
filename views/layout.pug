@@ -14,7 +14,8 @@ body
     ul.nav.nav-pills
       each link in links
         li.nav-item: a.nav-link(href=link)= link
-      li: a(href='/new') new
+      li: a(href='/newempl') new Employee
+      li: a(href='/newmanag') new Manager
     hr
     //- .well
     //-   p First Name: #{query.name}

@@ -1,6 +1,8 @@
 module.exports = class Employee {
   constructor(obj) {
-    this.emplData = obj;
+    //storing input obj in field
+    // this.emplData = obj;
+    // create 8 const by deconstructing input obj
     const {
       _id,
       firstName,
@@ -11,6 +13,7 @@ module.exports = class Employee {
       team,
       dev_team
     } = obj;
+    // create 8 fields with values from deconstructed objs
     this._id = _id;
     this.firstName = firstName;
     this.lastName = lastName;
@@ -47,4 +50,25 @@ module.exports = class Employee {
       return this.salary;
     }
   }
+
+//declare custom iterator
+
+  // [Symbol.iterator]() {
+  //   let element = this.manager;
+
+  //       return {
+  //           next() {
+  //               let value, done = true;
+  //               if (element !== 0) {
+  //                   value = element.data;
+  //                   done = false;
+  //                   element = element.next;
+  //               }
+  //               return {
+  //                   value: value,
+  //                   done: done
+  //               }
+  //           }
+  //       }
+  //   }
 };

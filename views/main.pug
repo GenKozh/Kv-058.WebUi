@@ -1,4 +1,36 @@
 extends layout
 
 block content
-    p= content
+  p= content
+  ul
+    .well
+      each employee in data
+        li= employee
+  hr
+  a.btn.btn-sm.btn-success(href='/api/v1/employees') GET /api/v1/employees
+  span &nbsp;
+  a.btn.btn-sm.btn-success(href='/api/v1/employees/'+id) GET /api/v1/employees/0
+  span &nbsp;
+  a.btn.btn-sm.btn-success(href='/api/v1/employees/'+`${id+3}`) GET /api/v1/employees/3
+  hr
+  a.btn.btn-sm.btn-info(href='/api/v1/managers') GET /api/v1/managers
+  span &nbsp;
+  a.btn.btn-sm.btn-info(href='/api/v1/managers/'+id) GET /api/v1/managers/0
+  span &nbsp;
+  a.btn.btn-sm.btn-info(href='/api/v1/managers/'+`${id+3}`) GET /api/v1/managers/3
+  hr
+  a.btn.btn-sm.btn-primary(href='/api/v1/managers/'+id+'/team') GET /api/v1/managers/0/team
+  span &nbsp;
+  a.btn.btn-sm.btn-primary(href='/api/v1/managers/3/team') GET /api/v1/managers/3/team
+  span &nbsp;
+  hr
+  form(method='get' action='/api/v1/employees')
+    .form-group.col-sm-3
+      label(for='id') Enter Employee Id:
+      input#id.form-control(name='id' type='text')
+      button.btn.btn-sm.btn-success(type='submit') GET /api/v1/employees/:id
+  form(method='post' action='/api/v1/managers/3/team')
+    .form-group.col-sm-3
+      label(for='id') Enter team member Id:
+      input#id.form-control(name='id' type='text')
+      button.btn.btn-sm.btn-info(type='submit') POST /api/v1/managers/3/team

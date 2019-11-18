@@ -1,0 +1,37 @@
+extends layout
+
+block content
+  form(method='post' action='/api/v1/managers')
+    fieldset.row
+      .col-xs-6
+        .form-group
+          label(for='role') Type
+          input#role.form-control(name='role' type='text' value='manager')
+        .form-group
+          label(for='salary') Salary
+          input#salary.form-control(name='salary' type='text')
+      .col-xs-6
+        .form-group
+          label(for='firstName') First Name
+          input#firstName.form-control(name='firstName' type='text')
+        .form-group
+          label(for='lastName') Last Name
+          input#lastName.form-control(name='lastName' type='text')
+    fieldset.row
+      .col-xs-6
+        .form-group
+          label(for='experience') Experience
+          input#experience.form-control(name='experience' type='text')
+        .form-group
+          label(for='manager') Manager
+          input#manager.form-control(name='manager' type='text')
+      .col-xs-6
+        .form-group
+          label(for='team') Team
+          input#team.form-control(name='team' type='text')
+        .form-group
+          label(for='dev_team') Developer's team
+          input#dev_team.form-control(name='dev_team' type='text')
+        .form-group
+          button.btn.btn-sm.btn-info(type='submit') POST /api/v1/managers
+
