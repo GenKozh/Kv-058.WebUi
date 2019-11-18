@@ -5,7 +5,7 @@ const EmployeeFactory = require('./modules/EmployeeFactory.js');
 
 // Array is the best DB
 
-const data = require("./modules/DepartmentDb.js");
+const data = require("./modules/departmentDb.js");
 
 
 const newDep = new Department(data);
