@@ -1,12 +1,11 @@
 //================= Modular Node OOP part ===================
 
 const Department = require("./modules/Department.js");
-const EmployeeFactory = require('./modules/EmployeeFactory.js');
+const EmployeeFactory = require("./modules/EmployeeFactory.js");
 
-// Array is the best DB
+//================== Array is the best DB
 
 const data = require("./modules/departmentDb.js");
-
 
 const newDep = new Department(data);
 
@@ -47,12 +46,12 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 
-//Paths for GET/POST requests
+//============== Paths for GET/POST requests
 
 const __depEmployees = "/api/v1/employees";
 const __depManagers = "/api/v1/managers";
 
-//Links for Bootstrap NavBar
+//============= Links for dinamic Bootstrap NavBar
 
 let store = {
   department: {
@@ -69,144 +68,136 @@ let store = {
   }
 };
 
-
 let storeKeys = Object.keys(store);
+
+//=========== Express configuratoin ============
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app
-  .get('/department', (req, res) => {
-    res.render("main.pug", {
-      page: "Department Employees",
-      links: storeKeys,
-      data: newDep.empl,
-      id: 0
-    });
-  });
+//=========== Backend request logger - uncomment if needed
 
-app
-  .get('/',(req, res) => {
+app.use((req, res, next) => {
+  console.log("%s %s", req.method, req.url);
+  next();
+});
+
+//=========== Main layout and redirect to main layout
+
+app.get("/department", (req, res) => {
+  res.render("main.pug", {
+    page: "Department Employees",
+    links: storeKeys,
+    data: newDep.empl,
+    id: 0
+  });
+});
+
+app.get("/", (req, res) => {
   res.redirect("/department");
   return;
-  });
+});
 
-app
-  .get('/employees',(req, res) => {
+//================== Employess and managers redirects
+
+app.get("/employees", (req, res) => {
   res.redirect("/api/v1/employees");
   return;
-  });
+});
 
-app
-  .get('/managers',(req, res) => {
+app.get("/managers", (req, res) => {
   res.redirect("/api/v1/managers");
   return;
-  });
+});
 
-app
-  .get('/newempl',(req, res) => {
-    res.render("newempl.pug", {
-      page: "Add New Employee",
-      links: storeKeys,
-    });
+//================ New employee/manager layout
+app.get("/newempl", (req, res) => {
+  res.render("newempl.pug", {
+    page: "Add New Employee",
+    links: storeKeys
   });
-app
-  .get('/newmanag',(req, res) => {
-    res.render("newmanag.pug", {
-      page: "Add New Manager",
-      links: storeKeys,
-    });
+});
+app.get("/newmanag", (req, res) => {
+  res.render("newmanag.pug", {
+    page: "Add New Manager",
+    links: storeKeys
   });
+});
 
-app
-  .get('/api/v1/employees/:id', (req, res) => {
-    res.send(JSON.stringify(
-        newDep.empl.map(({ role: type, _id: id, manager: manager_id, salary: salary, ...others }) => ({
+//============== Single employee/manager request - with calculated salary with bonuses output
+app.get("/api/v1/employees/:id", (req, res) => {
+  res.send(
+    JSON.stringify(
+      newDep.empl.map(
+        ({
+          role: type,
+          _id: id,
+          manager: manager_id,
+          salary: salary,
+          ...others
+        }) => ({
           type,
           id,
+          salary: parseInt(newDep.empl[Number(id)].getSalary()),
           manager_id,
           ...others
-        }))[req.params.id]
-      )
-    );
-  });
+        })
+      )[req.params.id]
+    )
+  );
+});
 
-app
-  .get('/api/v1/managers/:id', (req, res) => {
-    res.send(JSON.stringify(
-        newDep.empl.map(({ role: type, _id: id, manager: manager_id, salary: salary, team, dev_team, ...others }) => ({
+app.get("/api/v1/managers/:id", (req, res) => {
+  res.send(
+    JSON.stringify(
+      newDep.empl.map(
+        ({
+          role: type,
+          _id: id,
+          manager: manager_id,
+          salary: salary,
+          team,
+          dev_team,
+          ...others
+        }) => ({
           type,
           id,
+          salary: parseInt(newDep.empl[Number(id)].getSalary()),
           manager_id,
-          salary,
           ...others
-        }))[req.params.id]
-      )
-    );
-  });
+        })
+      )[req.params.id]
+    )
+  );
+});
+
+//============== All employess requests with needed format ouput .map() with no salary output
 
 app
   .route(__depEmployees)
   .get((req, res) => {
     // console.log(newDep.empl);
-    res.send(JSON.stringify(
-        newDep.empl.map(({ role: type, _id: id, manager: manager_id, salary: salary, ...others }) => ({
-          type,
-          id,
-          manager_id,
-          ...others
-        }))
+    res.send(
+      JSON.stringify(
+        newDep.empl.map(
+          ({
+            role: type,
+            _id: id,
+            manager: manager_id,
+            salary: salary,
+            ...others
+          }) => ({
+            type,
+            id,
+            manager_id,
+            ...others
+          })
+        )
       )
     );
   })
-  .post((req, res) => {
-    const data = req.body;
-    console.log(data);
-    if (data.role && data.salary && data.firstName && data.lastName && data.experience && data.manager) {
-      newDep.empl.push(((obj) => {
-        obj = data;
-        const factory = new EmployeeFactory();
-        let employee = {}; 
-        employee =  factory.createEmployees(obj)
-        return employee;
-      })());
-    }
-    res.redirect("/");
-  });
 
+  // ============= new employee creation with simple validation
 
-
-// GET /api/v1/managers/:id/team should return a list of this manager's team in format
-// [{"type": "designer", "id": 0, other data...}, {"type": "developer", other data...}]
-// POST /api/v1/managers/:id/team should accept an object {"employee_id": 0}
-// and should add an employee from general employee list by his employee_id (or index) to manager's team
-
-
-
-app
-  .route(__depManagers)
-  .get((req, res) => {
-    // console.log(newDep.empl);
-
-    const reduceArray = newDep.empl.reduce((carry, item) => {
-      if (typeof item === "object" && item.role === "manager") {
-        carry.push(item);
-      }
-      return carry;
-    }, []);
-
-    const managersArray = reduceArray.map(
-    ({ role: type, _id: _id, salary, team, dev_team, ...others }, id) => (
-      {
-      type,
-      id,
-      ...others
-    }));
-
-    res.send(
-          JSON.stringify(managersArray)
-      )
-    return;
-  })
   .post((req, res) => {
     const data = req.body;
     console.log(data);
@@ -230,6 +221,59 @@ app
     }
     res.redirect("/");
   });
+
+//=================== All Managers request with id from Managers Array - .reduce() + .map()
+app
+  .route(__depManagers)
+  .get((req, res) => {
+    // console.log(newDep.empl);
+
+    const reduceArray = newDep.empl.reduce((carry, item) => {
+      if (typeof item === "object" && item.role === "manager") {
+        carry.push(item);
+      }
+      return carry;
+    }, []);
+
+    const managersArray = reduceArray.map(
+      ({ role: type, _id: _id, salary, team, dev_team, ...others }, id) => ({
+        type,
+        id,
+        ...others
+      })
+    );
+
+    res.send(JSON.stringify(managersArray));
+    return;
+  })
+
+  //=============== New manager record creation
+
+  .post((req, res) => {
+    const data = req.body;
+    console.log(data);
+    if (
+      data.role &&
+      data.salary &&
+      data.firstName &&
+      data.lastName &&
+      data.experience &&
+      data.manager
+    ) {
+      newDep.empl.push(
+        (obj => {
+          obj = data;
+          const factory = new EmployeeFactory();
+          let employee = {};
+          employee = factory.createEmployees(obj);
+          return employee;
+        })()
+      );
+    }
+    res.redirect("/");
+  });
+
+//========= Node Express Server - Heroku or local configuraiton
 
 const server = app.listen(process.env.PORT || 5000, function() {
   console.log("Listening on port 5000");

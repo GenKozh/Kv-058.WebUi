@@ -24,13 +24,31 @@ block content
   a.btn.btn-sm.btn-primary(href='/api/v1/managers/3/team') GET /api/v1/managers/3/team
   span &nbsp;
   hr
-  form(method='get' action='/api/v1/employees')
-    .form-group.col-sm-3
-      label(for='id') Enter Employee Id:
-      input#id.form-control(name='id' type='text')
-      button.btn.btn-sm.btn-success(type='submit') GET /api/v1/employees/:id
-  form(method='post' action='/api/v1/managers/3/team')
-    .form-group.col-sm-3
-      label(for='id') Enter team member Id:
-      input#id.form-control(name='id' type='text')
-      button.btn.btn-sm.btn-info(type='submit') POST /api/v1/managers/3/team
+  form#form.form-horizontal(method='get' action='/api/v1/employees')
+    .form-group
+      label.col-xs-2.control-label(for='id') Enter Employee Id:
+      .col-xs-2
+        input#id.form-control(name='id' type='text')
+      button#btn.btn.btn-sm.btn-success(type='submit') GET /api/v1/employees/:id
+
+
+  script.
+    //- const form = document.getElementById('form');
+    //- const id = document.getElementById('id');
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      const theUrl = '/api/v1/employees/' + id.value;
+      console.log(id.value);
+      var xmlHttp = new XMLHttpRequest();
+      xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+      xmlHttp.send(null);
+    })
+
+
+    //- var a = document.createElement('a');
+    
+    //- a.href = 'http://' + document.getElementById('href').value;    
+    //- a.target = '_blank';
+    //- a.appendChild(document.createTextNode(document.getElementById('href').value));
+    //- document.getElementById('link').appendChild(a);
+    //- document.getElementById('link').appendChild(document.createElement('br'));

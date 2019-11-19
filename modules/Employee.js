@@ -53,22 +53,22 @@ module.exports = class Employee {
 
 //declare custom iterator
 
-  // [Symbol.iterator]() {
-  //   let element = this.manager;
+  [Symbol.iterator]() {
+    let element = this.manager;
 
-  //       return {
-  //           next() {
-  //               let value, done = true;
-  //               if (element !== 0) {
-  //                   value = element.data;
-  //                   done = false;
-  //                   element = element.next;
-  //               }
-  //               return {
-  //                   value: value,
-  //                   done: done
-  //               }
-  //           }
-  //       }
-  //   }
+        return {
+            next() {
+                let value, done = true;
+                if (element !== 0) {
+                    value = element.data;
+                    done = false;
+                    element = element.next;
+                }
+                return {
+                    value: value,
+                    done: done
+                }
+            }
+        }
+    }
 };
